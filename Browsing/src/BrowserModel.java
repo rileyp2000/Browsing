@@ -6,44 +6,50 @@ import java.util.Stack;
  *
  */
 public class BrowserModel {
-	
+
 	private BrowserView v;
 	private Stack<Integer> fwd;
 	private Stack<Integer> back;
 	private int lineNum;
-	
-	
+
 	public BrowserModel(BrowserView view) {
 		v = view;
 		v.update(0);
-		
+
 		fwd = new Stack<Integer>();
 		back = new Stack<Integer>();
+		lineNum = 0;
 	}
 
 	public boolean hasBack() {
-		// TODO Auto-generated method stub
-		return false;
+		return !back.isEmpty();
 	}
 
 	public boolean hasForward() {
-		// TODO Auto-generated method stub
-		return false;
+		return !fwd.isEmpty();
 	}
-	
+
 	public void back() {
-		
+		if (hasBack()) {
+			fwd.push(lineNum);
+			lineNum = back.pop();
+			v.update(lineNum);
+		}
 	}
-	
+
 	public void forward() {
-		
+
 	}
-		
+
 	public void home() {
-		// TODO Auto-generated method stub
+		followLink(0);
+		back.clear();
 	}
-	
+
 	public void followLink(int n) {
-		
+		fwd.clear();
+		back.push(lineNum);
+		v.update(n);
+		lineNum = n;
 	}
 }
