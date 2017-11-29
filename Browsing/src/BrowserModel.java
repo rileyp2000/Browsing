@@ -38,7 +38,11 @@ public class BrowserModel {
 	}
 
 	public void forward() {
-
+		if(hasForward()){
+			back.push(lineNum);
+			lineNum = fwd.pop();
+			v.update(lineNum);
+		}
 	}
 
 	public void home() {
